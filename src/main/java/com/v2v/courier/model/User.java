@@ -1,13 +1,16 @@
 package com.v2v.courier.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +31,10 @@ public class User implements UserDetails {
   private String password;
   @Enumerated(value = EnumType.STRING)
   private Role role;
+
+  @JsonManagedReference
+  @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+  private List<Courier> couriers = new ArrayList<>();
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities(){

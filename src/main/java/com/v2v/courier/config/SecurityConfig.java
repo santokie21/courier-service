@@ -35,11 +35,11 @@ public class SecurityConfig {
                 .permitAll()
                 .anyRequest()
                 .authenticated()
-        ).userDetailsService(userDetailsServiceImplementation)
+        )
+        .userDetailsService(userDetailsServiceImplementation)
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        )
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
 
